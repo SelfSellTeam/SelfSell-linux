@@ -1,20 +1,7 @@
 #!/bin/sh
-#linux_installation_guide
-#befor installation, make sure you have installed dependent packages in your system
-# for ubuntu systems, do as following
-        # sudo apt-get update
-        # sudo apt-get install cmake git libreadline-dev uuid-dev g++ libncurses5-dev zip libssl-dev openssl pkg-config build-essential python-dev autoconf autotools-dev libicu-dev libbz2-dev libboost-dev libboost-all-dev 
 
-        # echo "install ntp time and do configurations..."
-        # sudo apt-get install ntp 
-        # sudo apt-get install ntpdate
-        # sudo service ntp stop
-        # sudo ntpdate -s time.nist.gov
-        # sudo service ntp start
-#
-echo "Warning: make sure you have installed dependent packages in your system"
-echo "if not, pls read the buildall.sh and run the comment scripts in the beginning"
-echo
+#linux_installation_guide
+#Please run as root user!
 
 while true; do
     read -p "Do you wish to continue building the program?[y/n] " yn
@@ -25,41 +12,83 @@ while true; do
     esac
 done
 
-if [ "$1" != "download" ]
-then
-    echo "Do not download sourcecode.  Isdownload=Nodownload"
-    Isdownload=Nodownload
-else
-    Isdownload=$1
-fi
-
+#init the folder
 currentpath=$(pwd)
+miniupnpc_tar=$currentpath/miniupnpc-1.7.20120830.tar.gz
+boost_tar=$currentpath/boost_1_59_0.tar.gz
+leveldb_tar=$currentpath/v1.20.tar.gz
+
+miniupnpc_path=$currentpath/miniupnpc-1.7.20120830/
 leveldbpath=$currentpath/leveldb-1.20/
-miniupnpcpath=$currentpath/miniupnpc-1.7.20120830/
-leveldbtar=$currentpath/v1.20.tar.gz
-miniupnpctar=$currentpath/miniupnpc-1.7.20120830.tar.gz
 fc=$currentpath/fast-compile
-blockchain=$currentpath/Chain
+blockchain=$currentpath/SelfSell/Chain
 
-echo "build and  install the leveldb [1.18 or later]"
-if [ "$Isdownload" = "download" ]
-then
-    echo "download leveldb version 1.20 [https://github.com/google/leveldb/releases]"
-    wget -O v1.20.tar.gz https://github.com/google/leveldb/archive/v1.20.tar.gz
+#check file or folder exists
+
+if [ -f "$boost_tar" ]; then
+echo "$boost_tar exist"
 else
-    echo "Do not download leveldb source files"
+echo "ERROR--$boost_tar not exist"
+exit(0)
 fi
-echo
 
-if [ -f $leveldbtar ]; then 
+if [ -f "$leveldb_tar" ]; then
+echo "$leveldb_tar exist"
+else
+echo "ERROR--$leveldb_tar not exist"
+exit(0)
+fi
+
+if [ -f "$miniupnpc_tar" ]; then
+echo "$miniupnpc_tar exist"
+else
+echo "ERROR--$miniupnpc_tar not exist"
+exit(0)
+fi
+
+if [ -d "$fc" ]; then
+echo "$fc exist"
+else
+echo "ERROR--$fc not exist"
+exit(0)
+fi
+
+if [ -d "$blockchain" ]; then
+echo "$blockchain exist"
+else
+echo "ERROR--$blockchain not exist"
+exit(0)
+fi
+
+echo "Enter Y if you want to continue building the program when installing some dependent packages !!!"
+
+echo "[1/5] 1. start install boost，it will take 5-10 minutes..."
+
+export LC_ALL="en_US.UTF-8"
+tar -zxvf boost_1_59_0.tar.gz
+cd boost_1_59_0
+./bootstrap.sh  
+./b2
+
+mkdir /usr/local/boost_1_59_0
+mkdir /usr/local/boost_1_59_0/include
+mkdir /usr/local/boost_1_59_0/lib64
+cp -rf boost /usr/local/boost_1_59_0/include
+cp -rf stage/lib/* /usr/local/boost_1_59_0/lib64
+cd $currentpath/
+
+
+echo "[2/5] 2. start build and  install the leveldb [1.18 or later]..."
+
+if [ -f $leveldb_tar ]; then 
     echo "unzip leveldb source files"
     tar -zxvf v1.20.tar.gz
  else
     echo
 fi
 
-if [ -d "$leveldbpath" ]; then
-    cd $leveldbpath
+if [ -d "$leveldb_path" ]; then
+    cd $leveldb_path
     make
     sudo scp out-static/lib*  /usr/local/lib/
     cd ..
@@ -67,23 +96,16 @@ else
     echo "Error: there are no related leveldb files, pls check ..."
 fi
 
-echo "build and install the miniupnpc [ only  1.7 ]"
+echo "[3/5] 3. start  build and install the miniupnpc [ only  1.7 ]..."
 
-if  [ "$Isdownload" = "download" ] ; then
-    echo "download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz"
-    wget -O miniupnpc-1.7.20120830.tar.gz http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
-else
-    echo "Do not download miniupnpc files"
-fi
-
-if [ -f $miniupnpctar ]; then 
+if [ -f $miniupnpc_tar ]; then 
     echo "unzip miniupnpc..."
     tar -zxvf miniupnpc-1.7.20120830.tar.gz
 else
     echo
 fi
-if [ -d "$miniupnpcpath" ]; then
-    cd $miniupnpcpath
+if [ -d "$miniupnpc_path" ]; then
+    cd $miniupnpc_path
     cmake .
     make
     sudo make install
@@ -92,37 +114,30 @@ else
     echo "Error: there are no related miniupnpc files, pls check ..."
 fi 
 
-echo "build fast-compile library..."
-if  [ "$Isdownload" = "download" ] ; then
-    git clone https://github.com/SelfSell-Dev/fast-compile.git
-    cd fast-compile
-    git submodule update --init --recursive
-    git checkout static_variant_string_tag
-else
-    echo
-fi
+echo "[4/5] 4. start build fast-compile library，it will task a moment..."
+
 if [ -d "$fc" ]; then
     cd $fc
     cmake .
     make
-    sudo cp libfc.a  /usr/local/lib/
-    sudo cp $fc/vendor/secp256k1-zkp/src/project_secp256k1-build/.libs/libsecp256k1.a /usr/local/lib
+    cp libfc.a  /usr/local/lib/
+    cp $fc/vendor/secp256k1-zkp/src/project_secp256k1-build/.libs/libsecp256k1.a /usr/local/lib
     cd ..
 else
     echo "Error: no related fast-compile files, pls check..."
 fi
 
 echo
-echo "build SelfSell code..."
+echo "[5/5] 5. start build SelfSell,it will take 5-10 minutes ..."
 echo
+
 if [ -d "$blockchain" ]; then
     cd $blockchain
-    cmake . 
+    cmake .
     make
     cd ..
 else
     echo "Error: no related SelfSell_linux files, pls check..."
 fi
 
-echo "Info: finished building work, pls move $blockchain/SelfSell to the running directory "
-
+echo "Info: finished work successfully, please move $blockchain/SelfSell to the running directory "
