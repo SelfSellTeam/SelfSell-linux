@@ -3,15 +3,16 @@
 
 1.first you should download the dependent packages,
   ./download.sh
+- Please run **[./download.sh download](https://github.com/SelfSellTeam/SelfSell-linux/linux_installation_guide) . 
  
  2.build
  ./build_XXX.sh
  
-- Please read [linux_installation_guide](https://github.com/SelfSell-Team/SelfSell_linux/blob/master/linux_installation_guide) and follow  procedures in the document. 
+- Please read [linux_installation_guide](https://github.com/SelfSellTeam/SelfSell-linux/linux_installation_guide) and follow  procedures in the document. 
 
-- Besides, you could also just run **[ ./build_centos.sh download ](https://github.com/SelfSell-Team/SelfSell_linux/build_centos.sh)** 
-         or **[ ./build_ubuntu.sh download ](https://github.com/SelfSell-Team/SelfSell_linux/build_ubuntu.sh)** 
-         or **[ ./build_mac.sh download ](https://github.com/SelfSell-Team/SelfSell_linux/build_mac.sh)** to build SelfSell efficiently.
+- Besides, you could also just run **[ ./build_centos.sh download ](https://github.com/SelfSellTeam/SelfSell-linux/build_centos.sh)** 
+         or **[ ./build_ubuntu.sh download ](https://github.com/SelfSellTeam/SelfSell-linux/build_ubuntu.sh)** 
+         or **[ ./build_mac.sh download ](https://github.com/SelfSellTeam/SelfSell-linux/build_mac.sh)** to build SelfSell efficiently.
 
 
 # Supported Linux Platforms
