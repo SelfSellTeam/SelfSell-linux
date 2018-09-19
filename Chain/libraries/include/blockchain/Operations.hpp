@@ -28,17 +28,30 @@ namespace thinkyoung {
             null_op_type = 0,
             
             // balances
+            //从账户中取钱的操作
             withdraw_op_type = 1,
+		
+	     //向账户存钱的操作
             deposit_op_type = 2,
             
             // accounts
+            //注册账户
             register_account_op_type = 3,
-            update_account_op_type = 4,
+           
+           //更新账户
+	     update_account_op_type = 4,
+           
+           //
             withdraw_pay_op_type = 5,
             
             // assets
+            //创建资产
             create_asset_op_type = 6,
+            
+            //更新资产
             update_asset_op_type = 7,
+            	
+            //发布资产
             issue_asset_op_type = 8,
             
             // reserved
@@ -56,21 +69,34 @@ namespace thinkyoung {
             
             // assets
             update_asset_ext_op_type = 30,
+            
             //memo
+            //普通消息
             imessage_memo_op_type = 66,
             
+            //合约消息
             contract_info_op_type = 68,
             
+            //注册合约
             register_contract_op_type = 70,
+            	
+            //升级合约
             upgrade_contract_op_type = 71,
+            	
+            	//销毁合约
             destroy_contract_op_type = 72,
+            	//调用合约
             call_contract_op_type = 73,
+            	//向合约转账
             transfer_contract_op_type = 74,
             // contract
+            //从合约取钱
             withdraw_contract_op_type = 80,
+            	//向合约存钱
             deposit_contract_op_type = 82,
             
             // balances withdraw
+            //
             balances_withdraw_op_type = 88,
             
             transaction_op_type = 90,
