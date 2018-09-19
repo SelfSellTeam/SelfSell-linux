@@ -3,6 +3,19 @@
 
 1. For Centos 7.3.1611 or Ubuntu16.04 or Fedora 27/25 systems
 
+*AutoMode:
+  1).
+      mkdir code_dir;
+      cp download.sh code_dir/
+      cp build_centos/build_ubuntu.sh code_dir/
+      cd code_dir;
+
+  2).run download.sh
+
+  3).run build_xxx.sh
+
+*ManualMode:
+
     1). install denpendancy packages
 
 	1.1）if Centos 7.3.1611
@@ -23,16 +36,15 @@
     3).  install ntp time and do configurations
 
     4).  install boost 1.59 
-           wget http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
+           curl -LO  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
            tar -zxvf boost_1_59_0.tar.gz
            cd boost_1_59_0
            ./bootstrap.sh  
            ./b2
 
-           mkdir /usr/local/boost_1_59_0
-           mkdir /usr/local/boost_1_59_0/include
-           mkdir /usr/local/boost_1_59_0/lib
-           mkdir /usr/local/boost_1_59_0/lib64
+           mkdir -p /usr/local/boost_1_59_0/include
+           mkdir -p /usr/local/boost_1_59_0/lib
+           mkdir -p /usr/local/boost_1_59_0/lib64
            cp -rf boost /usr/local/boost_1_59_0/include
            cp -rf stage/lib/* /usr/local/boost_1_59_0/lib
            cp -rf stage/lib/* /usr/local/boost_1_59_0/lib64
@@ -40,7 +52,7 @@
     5). install the leveldb [1.18 or later]
             download leveldb version 1.20 [https://github.com/google/leveldb/releases]
 
-            wget https://github.com/google/leveldb/archive/v1.20.tar.gz
+            curl -LO  https://github.com/google/leveldb/archive/v1.20.tar.gz
             tar -zxvf v1.20.tar.gz
             cd leveldb-1.20/
             make
@@ -49,13 +61,13 @@
     6). install the miniupnpc [ only  1.7 ]
             download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
 
-            wget -O miniupnpc-1.7.20120830.tar.gz http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
+            curl -LO  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
             tar -zxvf miniupnpc-1.7.20120830.tar.gz
             cd  miniupnpc-1.7.20120830
             cmake .
             make
-	    make install
-	    ldconfig
+            make install
+            ldconfig
 
      7). install fast compile library
             git clone https://github.com/SelfSellTeam/fast-compile.git
@@ -78,4 +90,85 @@
  you need change the CMakeList.txt
 
 
+2. For Mac systems
 
+*AutoMode:
+  1).
+      mkdir code_dir;
+      cp download_mac.sh code_dir/
+      cp build_mac.sh code_dir/
+      cd code_dir;
+
+  2).run download_mac.sh
+
+  3).run build_mac.sh
+
+
+*ManualMode:
+
+    1). install denpendancy packages
+	brew install automake autoconf libtool autotools cmake git openssl readline curl 
+	brew link --force openssl readline curl
+
+     2). install openssl 1.0.2k
+           curl -LO https://www.openssl.org/source/old/1.0.2/openssl-1.0.2k.tar.gz
+           tar -zxvf openssl-1.0.2k.tar.gz
+           cd openssl-1.0.2k
+           ./Configure darwin64-x86_64-cc --prefix= xxx 
+           make depend
+           make install
+
+    3).  install boost 1.59 
+           curl -LO  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
+           tar -zxvf boost_1_59_0.tar.gz
+           cd boost_1_59_0
+           ./bootstrap.sh  
+           ./b2 cxxflags="-arch x86_64" linkflags="-arch x86_64"
+           ./Configure darwin64-x86_64-cc --prefix= xxx 
+           make depend
+           make install
+
+           mkdir /usr/local/boost_1_59_0
+           mkdir /usr/local/boost_1_59_0/include
+           mkdir /usr/local/boost_1_59_0/lib
+           mkdir /usr/local/boost_1_59_0/lib64
+           cp -rf boost /usr/local/boost_1_59_0/include
+           cp -rf stage/lib/* /usr/local/boost_1_59_0/lib
+           cp -rf stage/lib/* /usr/local/boost_1_59_0/lib64
+
+    4). install the leveldb [1.18 or later]
+            download leveldb version 1.20 [https://github.com/google/leveldb/releases]
+
+            curl -LO  https://github.com/google/leveldb/archive/v1.20.tar.gz
+            tar -zxvf v1.20.tar.gz
+            cd leveldb-1.20/
+            make
+            scp out-static/lib*  /usr/local/lib/ 
+
+    5). install the miniupnpc [ only  1.7 ]
+            download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
+
+            curl -LO  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
+            tar -zxvf miniupnpc-1.7.20120830.tar.gz
+            cd  miniupnpc-1.7.20120830
+            cmake .
+            make
+            make install
+            ldconfig
+
+     6). install fast compile library
+            git clone https://github.com/SelfSellTeam/fast-compile.git
+            cd fast-compile/vendor
+            git clone https://github.com/cryptonomex/secp256k1-zkp.git
+            git clone https://github.com/zaphoyd/websocketpp.git
+            cd ../
+            cmake .
+            make
+            cp libfc.a  /usr/local/lib/
+            cp vendor/secp256k1-zkp/src/project_secp256k1-build/.libs/libsecp256k1.a /usr/local/lib
+
+     7). build BLOCKCHAIN code
+             git clone https://github.com/SelfSellTeam/SelfSell-linux.git
+             cd SelfSell_linux/Chain/
+             cmake . [ -DBOOST_ROOT=xxxx  -DOPENSSL_ROOT_DIR=xxxx]
+             make
