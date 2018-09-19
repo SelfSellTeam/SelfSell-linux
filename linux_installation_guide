@@ -36,7 +36,7 @@
     3).  install ntp time and do configurations
 
     4).  install boost 1.59 
-           curl -LO  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
+           curl -Lo boost_1_59_0.tar.gz  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz --progress 
            tar -zxvf boost_1_59_0.tar.gz
            cd boost_1_59_0
            ./bootstrap.sh  
@@ -52,7 +52,7 @@
     5). install the leveldb [1.18 or later]
             download leveldb version 1.20 [https://github.com/google/leveldb/releases]
 
-            curl -LO  https://github.com/google/leveldb/archive/v1.20.tar.gz
+            curl -Lo v1.20.tar.gz  https://github.com/google/leveldb/archive/v1.20.tar.gz --progress 
             tar -zxvf v1.20.tar.gz
             cd leveldb-1.20/
             make
@@ -61,7 +61,7 @@
     6). install the miniupnpc [ only  1.7 ]
             download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
 
-            curl -LO  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
+            curl -Lo miniupnpc-1.7.20120830.tar.gz  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz --progress 
             tar -zxvf miniupnpc-1.7.20120830.tar.gz
             cd  miniupnpc-1.7.20120830
             cmake .
@@ -82,7 +82,7 @@
 
      8). build BLOCKCHAIN code
              git clone https://github.com/SelfSellTeam/SelfSell-linux.git
-             cd SelfSell_linux/Chain/
+             cd SelfSell-linux/Chain/
              cmake . [ -DBOOST_ROOT=xxxx  -DOPENSSL_ROOT_DIR=xxxx]
              make
 
@@ -111,7 +111,7 @@
 	brew link --force openssl readline curl
 
      2). install openssl 1.0.2k
-           curl -LO https://www.openssl.org/source/old/1.0.2/openssl-1.0.2k.tar.gz
+           curl -Lo openssl-1.0.2k.tar.gz https://www.openssl.org/source/old/1.0.2/openssl-1.0.2k.tar.gz --progress 
            tar -zxvf openssl-1.0.2k.tar.gz
            cd openssl-1.0.2k
            ./Configure darwin64-x86_64-cc --prefix= xxx 
@@ -119,7 +119,7 @@
            make install
 
     3).  install boost 1.59 
-           curl -LO  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
+           curl -Lo boost_1_59_0.tar.gz  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz --progress 
            tar -zxvf boost_1_59_0.tar.gz
            cd boost_1_59_0
            ./bootstrap.sh  
@@ -139,7 +139,7 @@
     4). install the leveldb [1.18 or later]
             download leveldb version 1.20 [https://github.com/google/leveldb/releases]
 
-            curl -LO  https://github.com/google/leveldb/archive/v1.20.tar.gz
+            curl -Lo v1.20.tar.gz  https://github.com/google/leveldb/archive/v1.20.tar.gz --progress 
             tar -zxvf v1.20.tar.gz
             cd leveldb-1.20/
             make
@@ -148,7 +148,7 @@
     5). install the miniupnpc [ only  1.7 ]
             download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
 
-            curl -LO  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
+            curl -Lo miniupnpc-1.7.20120830.tar.gz  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz --progress 
             tar -zxvf miniupnpc-1.7.20120830.tar.gz
             cd  miniupnpc-1.7.20120830
             cmake .
@@ -169,6 +169,6 @@
 
      7). build BLOCKCHAIN code
              git clone https://github.com/SelfSellTeam/SelfSell-linux.git
-             cd SelfSell_linux/Chain/
+             cd SelfSell-linux/Chain/
              cmake . [ -DBOOST_ROOT=xxxx  -DOPENSSL_ROOT_DIR=xxxx]
              make

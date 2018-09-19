@@ -70,14 +70,14 @@ systemctl enable ntpd.service
 fi
 
 echo "[3/7] 3. start download boost..."
-curl -LO  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
+curl -Lo boost_1_59_0.tar.gz  http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz curl http://man.linuxde.net/test.iso --progress
 
 
 echo "[4/7] 4. start download leveldb version 1.20..."
-curl -LO https://github.com/google/leveldb/archive/v1.20.tar.gz
+curl -Lo v1.20.tar.gz https://github.com/google/leveldb/archive/v1.20.tar.gz --progress
 
 echo "[5/7] 5.download miniupnpc..."
-curl -LO  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz
+curl -Lo miniupnpc-1.7.20120830.tar.gz  http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.7.20120830.tar.gz --progress
 
 echo "[6/7] 6. start build fast-compile library，it will task a moment..."
 git clone https://github.com/SelfSellTeam/fast-compile.git

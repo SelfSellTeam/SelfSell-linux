@@ -21,7 +21,7 @@ leveldb_tar=$currentpath/v1.20.tar.gz
 miniupnpc_path=$currentpath/miniupnpc-1.7.20120830/
 leveldbpath=$currentpath/leveldb-1.20/
 fc=$currentpath/fast-compile
-blockchain=$currentpath/SelfSell/Chain
+blockchain=$currentpath/SelfSell-linux/Chain
 
 #check file or folder exists
 
@@ -29,35 +29,35 @@ if [ -f "$boost_tar" ]; then
 echo "$boost_tar exist"
 else
 echo "ERROR--$boost_tar not exist"
-exit(0)
+exit
 fi
 
 if [ -f "$leveldb_tar" ]; then
 echo "$leveldb_tar exist"
 else
 echo "ERROR--$leveldb_tar not exist"
-exit(0)
+exit
 fi
 
 if [ -f "$miniupnpc_tar" ]; then
 echo "$miniupnpc_tar exist"
 else
 echo "ERROR--$miniupnpc_tar not exist"
-exit(0)
+exit
 fi
 
 if [ -d "$fc" ]; then
 echo "$fc exist"
 else
 echo "ERROR--$fc not exist"
-exit(0)
+exit
 fi
 
 if [ -d "$blockchain" ]; then
 echo "$blockchain exist"
 else
 echo "ERROR--$blockchain not exist"
-exit(0)
+exit
 fi
 
 echo "Enter Y if you want to continue building the program when installing some dependent packages !!!"
