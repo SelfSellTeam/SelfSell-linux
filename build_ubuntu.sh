@@ -70,13 +70,15 @@ cd boost_1_59_0
 ./bootstrap.sh  
 ./b2
 
-mkdir /usr/local/boost_1_59_0
-mkdir /usr/local/boost_1_59_0/include
-mkdir /usr/local/boost_1_59_0/lib64
+mkdir -p  /usr/local/boost_1_59_0/include
+mkdir -p  /usr/local/boost_1_59_0/lib64
+mkdir -p  /usr/local/boost_1_59_0/lib
+
 cp -rf boost /usr/local/boost_1_59_0/include
 cp -rf stage/lib/* /usr/local/boost_1_59_0/lib64
-cd $currentpath/
+cp -rf stage/lib/* /usr/local/boost_1_59_0/lib
 
+cd $currentpath/
 
 echo "[2/5] 2. start build and  install the leveldb [1.18 or later]..."
 
