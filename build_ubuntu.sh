@@ -19,9 +19,11 @@ boost_tar=$currentpath/boost_1_59_0.tar.gz
 leveldb_tar=$currentpath/v1.20.tar.gz
 
 miniupnpc_path=$currentpath/miniupnpc-1.7.20120830/
-leveldbpath=$currentpath/leveldb-1.20/
+leveldb_path=$currentpath/leveldb-1.20/
 fc=$currentpath/fast-compile
 blockchain=$currentpath/SelfSell-linux/Chain
+
+export BOOST_ROOT="/usr/local/boost_1_59_0"
 
 #check file or folder exists
 
@@ -92,11 +94,12 @@ fi
 if [ -d "$leveldb_path" ]; then
     cd $leveldb_path
     make
-    sudo scp out-static/lib*  /usr/local/lib/
-    cd ..
+    scp out-static/lib*  /usr/local/lib/
 else
     echo "Error: there are no related leveldb files, pls check ..."
 fi
+
+cd $currentpath/
 
 echo "[3/5] 3. start  build and install the miniupnpc [ only  1.7 ]..."
 
@@ -106,6 +109,7 @@ if [ -f $miniupnpc_tar ]; then
 else
     echo
 fi
+
 if [ -d "$miniupnpc_path" ]; then
     cd $miniupnpc_path
     cmake .
