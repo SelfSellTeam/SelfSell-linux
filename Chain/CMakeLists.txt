@@ -68,12 +68,16 @@ endif()
 set(Boost_USE_STATIC_LIBS     ON)
 set(Boost_USE_MULTITHREADED   ON)
 set(Boost_USE_STATIC_RUNTIME  ON)
+#set(BOOST_ROOT  $ENV{BOOST_ROOT})
 set(BOOST_ROOT  "/usr/local/boost_1_59_0")
+FIND_PACKAGE( Boost 1.54.0 REQUIRED COMPONENTS system program_options chrono context coroutine date_time exception filesystem iostreams locale thread )
+if(Boost_FOUND)
+    message("Boost include dir: ${Boost_INCLUDE_DIR}")
+    message("Boost library dir: ${Boost_LIBRARY_DIR}") 
+else(Boost_FOUND)
+    message(FATAL_ERROR "BOOST not found!")
+endif(Boost_FOUND)
 
-#set(Boost_INCLUDE_DIR  "/usr/local/boost_1_59_0/include")
-#set(Boost_LIBRARY_DIR  "/usr/local/boost_1_59_0/lib")
-
-# SET  OPENSSL ENVS
 set( OPENSSL_ROOT_DIR  $ENV{OPENSSL_ROOT_DIR} )
 find_package(OpenSSL REQUIRED)
 # if find_package(OpenSSL REQUIRED) not work, comment it and uncomment the following two pkg

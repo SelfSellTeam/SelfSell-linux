@@ -49,7 +49,7 @@ if [ "$OS" == "Ubuntu" ];then
 apt-get update
 apt-get install cmake git libreadline-dev uuid-dev g++ libncurses5-dev zip libssl-dev openssl pkg-config build-essential python-dev autoconf autotools-dev libicu-dev libbz2-dev libtool curl
 elif [ "$OS" == "CentOS" ];then
-yum -y install cmake git readline-devel uuid-devel gcc ncurses-devel zip openssl openssl-devel pkgconfig python autoconf libicu-devel bzip2 curl 
+yum -y install cmake git readline-devel uuid-devel gcc ncurses-devel zip openssl openssl-devel pkgconfig python python-devel autoconf libicu-devel bzip2 curl 
 else
 echo "unknown OS"
 fi
@@ -85,6 +85,7 @@ cd fast-compile/vendor
 git clone https://github.com/cryptonomex/secp256k1-zkp.git
 git clone https://github.com/zaphoyd/websocketpp.git
 
+curl -Lo openssl-1.0.2k.tar.gz  https://www.openssl.org/source/old/1.0.2/openssl-1.0.2k.tar.gz  --progress
 
 echo "[7/7] 7.start download SelfSell Source Code..."
 cd $currentpath

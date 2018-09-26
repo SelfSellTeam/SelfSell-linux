@@ -17,10 +17,12 @@ currentpath=$(pwd)
 miniupnpc_tar=$currentpath/miniupnpc-1.7.20120830.tar.gz
 boost_tar=$currentpath/boost_1_59_0.tar.gz
 leveldb_tar=$currentpath/v1.20.tar.gz
+openssl_tar=$currentpath/openssl-1.0.2k.tar.gz
 
 miniupnpc_path=$currentpath/miniupnpc-1.7.20120830/
 leveldb_path=$currentpath/leveldb-1.20/
 fc=$currentpath/fast-compile
+openssl_path=$currentpath/openssl-1.0.2k
 blockchain=$currentpath/SelfSell-linux/Chain
 
 export BOOST_ROOT="/usr/local/boost_1_59_0"
@@ -132,6 +134,25 @@ if [ -d "$fc" ]; then
 else
     echo "Error: no related fast-compile files, pls check..."
 fi
+
+
+echo "[4.5/5] 4.5. start build OpenSSL..."
+if [ -f $openssl_tar ]; then 
+    echo "unzip leveldb source files"
+    tar -zxvf $openssl_tar
+ else
+    echo
+fi
+
+if [ -d "$openssl_path" ]; then
+    cd $openssl_path
+    ./config
+    make
+    make install
+else
+    echo "Error: there are no related openssl files, pls check ..."
+fi
+
 
 echo
 echo "[5/5] 5. start build SelfSell,it will take 5-10 minutes ..."
