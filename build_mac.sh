@@ -28,13 +28,13 @@ cd boost_1_59_0
 ./bootstrap.sh
 ./b2
 
-mkdir -p  /usr/local/boost_1_59_0/include
-mkdir -p  /usr/local/boost_1_59_0/lib64
-mkdir -p  /usr/local/boost_1_59_0/lib
+sudo mkdir -p  /usr/local/boost_1_59_0/include
+sudo mkdir -p  /usr/local/boost_1_59_0/lib64
+sudo mkdir -p  /usr/local/boost_1_59_0/lib
 
-cp -rf boost /usr/local/boost_1_59_0/include
-cp -rf stage/lib/* /usr/local/boost_1_59_0/lib64
-cp -rf stage/lib/* /usr/local/boost_1_59_0/lib
+sudo cp -rf boost /usr/local/boost_1_59_0/include
+sudo cp -rf stage/lib/* /usr/local/boost_1_59_0/lib64
+sudo cp -rf stage/lib/* /usr/local/boost_1_59_0/lib
 
 cd $currentpath
 
