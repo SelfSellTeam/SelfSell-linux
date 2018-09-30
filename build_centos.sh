@@ -1,6 +1,5 @@
 #!/bin/sh
 
-#linux_installation_guide
 #Please run as root user!
 
 while true; do
