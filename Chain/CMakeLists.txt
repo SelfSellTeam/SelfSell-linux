@@ -32,6 +32,9 @@ AUX_SOURCE_DIRECTORY(libraries/utilities UTILITIES_SRC)
 AUX_SOURCE_DIRECTORY(libraries/wallet WALLET_SRC)
 AUX_SOURCE_DIRECTORY(libraries/blockchain BLOCKCHAIN_SRC)
 AUX_SOURCE_DIRECTORY(libraries/glua GLUA_SRC)
+
+AUX_SOURCE_DIRECTORY(libraries/sys SYS_SRC)
+
 LIST(REMOVE_ITEM BLOCKCHAIN_SRC "libraries/blockchain/applink.c")
 LIST(REMOVE_ITEM GLUA_SRC "libraries/glua/main.cpp" "libraries/glua/cdemo1.cpp" "libraries/glua/SelfSell_lua_api.demo.cpp")
 
@@ -119,6 +122,7 @@ LINK_DIRECTORIES(
         "libraries/rpc"
         "libraries/rpc_stubs"
         "libraries/wallet"
+        "libraries/sys"
 )
 
 add_library(fc STATIC IMPORTED)
@@ -128,7 +132,7 @@ set_target_properties(fc PROPERTIES  IMPORTED_LOCATION /usr/local/lib/libfc.a)
 add_library(glua STATIC ${GLUA_SRC})
 set_target_properties(glua PROPERTIES  IMPORTED_LOCATION_RELEASE ./libglua.a  IMPORTED_LINK_INTERFACE_LIBRARIES fc)
 
-add_library(total STATIC ${API_SRC} ${BLOCKCHAIN_SRC} ${CLI_SRC} ${CLIENT_SRC} ${DB_SRC} ${NET_SRC} ${RPC_SRC} ${RPC_STUBS_SRC} ${UTILITIES_SRC} ${WALLET_SRC})
+add_library(total STATIC ${API_SRC} ${BLOCKCHAIN_SRC} ${CLI_SRC} ${CLIENT_SRC} ${DB_SRC} ${NET_SRC} ${RPC_SRC} ${RPC_STUBS_SRC} ${UTILITIES_SRC} ${WALLET_SRC}  ${SYS_SRC}  )
 set_target_properties(total PROPERTIES  IMPORTED_LOCATION_RELEASE ./libtotal.a  IMPORTED_LINK_INTERFACE_LIBRARIES fc)
 
 add_executable(${PROJECT_NAME} Main.cpp)

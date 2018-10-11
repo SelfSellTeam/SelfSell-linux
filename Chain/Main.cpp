@@ -23,12 +23,20 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sys/chainsystem.h>
 
 int main(int argc, char** argv)
 {
     try
     {
-		
+
+	int flg =checkexit(APP_LOCKFILE);
+
+	if(flg == -3)
+        {
+            wlog("${lockfile} has been locked,another instance running?",("lockfile",APP_LOCKFILE));
+            return -1;
+        }
 
         thinkyoung::client::ClientPtr client = std::make_shared<thinkyoung::client::Client>("ssc_client");
         client->configure_from_command_line(argc, argv);
